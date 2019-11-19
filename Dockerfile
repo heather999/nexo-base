@@ -16,6 +16,8 @@ RUN git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.
 FROM centos:7 as runtime
 MAINTAINER Heather Kelly <heather@slac.stanford.edu>
 
+ENV NEXOTOP /opt/nexo/software
+
 RUN yum update -y && \
     yum install -y bash \
     bison \
@@ -61,16 +63,11 @@ RUN yum update -y && \
     wget \
     which \
     zlib \
-    zlib-devel 
-
-RUN yum clean -y all
-
-RUN rm -rf /var/cache/yum
-
-RUN groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo 
-ENV NEXOTOP /opt/nexo/software
-
-RUN mkdir -p $NEXOTOP
+    zlib-devel && \
+    yum clean -y all && \
+    rm -rf /var/cache/yum && \
+    groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo  && \
+    mkdir -p $NEXOTOP
 
 WORKDIR $NEXOTOP
 
@@ -80,48 +77,39 @@ COPY --from=intermediate /ExternalInterface $NEXOTOP/ExternalInterface
 COPY --from=intermediate /nest $NEXOTOP/nest
 COPY --from=intermediate /sniper $NEXOTOP/sniper
 
-RUN chown -R nexo $NEXOTOP
-RUN chgrp -R nexo $NEXOTOP
+RUN chown -R nexo $NEXOTOP && \
+    chgrp -R nexo $NEXOTOP
+    
 USER nexo
-RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh
 
-
-RUN echo "Environment: \n" && env | sort
-
-RUN export PATH=$NEXOTOP/nexo-env:$PATH && \
+RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
+    echo "Environment: \n" && env | sort && \
+    export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
     nexoenv libs all gsl && \
     nexoenv libs all gccxml && \
-    nexoenv libs all ROOT
-
-# G4 download fails sometimes?
-RUN export PATH=$NEXOTOP/nexo-env:$PATH && \
+    nexoenv libs all ROOT && \
     nexoenv libs all geant4 && \
     nexoenv libs all vgm && \
     mkdir $NEXOTOP/ExternalLibs/Build/NEST && \
     mv $NEXOTOP/nest $NEXOTOP/ExternalLibs/Build/NEST/2.0 && \
     nexoenv libs all NEST && \
-    nexoenv libs all cmt 
-
-
-RUN export PATH=$NEXOTOP/nexo-env:$PATH \ 
-    && cd $NEXOTOP \
-    && nexoenv env \
-    && nexoenv cmtlibs \
-    && nexoenv sniper \
-    && nexoenv offline
-
-RUN cd $NEXOTOP \
-    && export PATH=$NEXOTOP/ExternalLibs/Python/2.7.15/bin:$PATH \
-    && pip install pyyaml \
-    && ln -s /opt/nexo/software/sniper/InstallArea/Linux-x86_64/lib /opt/nexo/software/sniper/InstallArea/lib
+    nexoenv libs all cmt && \
+    cd $NEXOTOP && \
+    nexoenv env && \
+    nexoenv cmtlibs && \
+    nexoenv sniper && \
+    nexoenv offline && \
+    export PATH=$NEXOTOP/ExternalLibs/Python/2.7.15/bin:$PATH && \
+    pip install pyyaml && \
+    ln -s /opt/nexo/software/sniper/InstallArea/Linux-x86_64/lib /opt/nexo/software/sniper/InstallArea/lib && \
+    rm -Rf $NEXOTOP/nexo-offline && \
+    rm -Rf $NEXOTOP/ExternalLibs/Build
 
 ENV NEXO_OFFLINE_OFF 1
 
-RUN rm -Rf $NEXOTOP/nexo-offline
-RUN rm -Rf $NEXOTOP/ExternalLibs/Build
 
 
