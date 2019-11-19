@@ -1,0 +1,29 @@
+name: nexo-base release
+
+on: 
+ release:
+  types: [published]
+
+jobs:
+  build:
+    name: nexo-base release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Docker login
+        run: echo '${{ secrets.DOCKERHUB_ACCESSTOK }}' | docker login --username heather999 --password-stdin
+      - name: checkout nexo-base
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Get the tag
+        id: get_tag
+        run: echo ::set-output name=DOCKTAG::${GITHUB_REF/refs\/tags\//}
+      - name: do docker build
+        run: docker build --no-cache -t heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }} -f $GITHUB_WORKSPACE/Dockerfile . 
+      - name: Docker push tag
+        run: docker push  heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }}
+      - name: tag dev
+        run: docker tag heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }} heather999/nexo-base:dev
+      - name: Docker push dev
+        run: docker push heather999/nexo-base:dev
+       
