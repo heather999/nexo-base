@@ -19,11 +19,9 @@ jobs:
         id: get_tag
         run: echo ::set-output name=DOCKTAG::${GITHUB_REF/refs\/tags\//}
       - name: do docker build
-        run: docker build --no-cache -t heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }} -f $GITHUB_WORKSPACE/Dockerfile . 
-      - name: Docker push tag
-        run: docker push  heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }}
-      - name: tag dev
-        run: docker tag heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }} heather999/nexo-base:dev
-      - name: Docker push dev
-        run: docker push heather999/nexo-base:dev
+        run: docker pull heather999/nexo-base:latest 
+      - name: tag 
+        run: docker tag heather999/nexo-base:latest heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }}
+      - name: Docker push 
+        run: docker push heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }}
        
