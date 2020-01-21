@@ -11,6 +11,9 @@ RUN git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.
     git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
     mv nexo-ei ExternalInterface && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/NESTCollaboration/nest.git && \
+    cd nest && \
+    git checkout 46bcf0a446ea35 && \
+    cd .. && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
 
 FROM centos:7 as runtime
