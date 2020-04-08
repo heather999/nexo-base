@@ -6,14 +6,9 @@ RUN yum update -y && \
 ARG GH_USER
 ARG GH_TOKEN
 
-RUN git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
-    git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-offline.git && \
+RUN git clone -b u/heather999/updateVersions https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
     mv nexo-ei ExternalInterface && \
-    git clone https://$GH_USER:$GH_TOKEN@github.com/NESTCollaboration/nest.git && \
-    cd nest && \
-    git checkout 46bcf0a446ea35 && \
-    cd .. && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
 
 FROM centos:7 as runtime
@@ -75,9 +70,7 @@ RUN yum update -y && \
 WORKDIR $NEXOTOP
 
 COPY --from=intermediate /nexo-env $NEXOTOP/nexo-env
-COPY --from=intermediate /nexo-offline $NEXOTOP/nexo-offline
 COPY --from=intermediate /ExternalInterface $NEXOTOP/ExternalInterface
-COPY --from=intermediate /nest $NEXOTOP/nest
 COPY --from=intermediate /sniper $NEXOTOP/sniper
 
 RUN chown -R nexo $NEXOTOP && \
@@ -89,6 +82,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     echo "Environment: \n" && env | sort && \
     export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
+    ln -s $NEXOTOP/ExternalLibs/Python/3.7.3/include/python3.4m $NEXOTOP/ExternalLibs/Python/3.7.3/lib/python3.4 && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
@@ -97,19 +91,14 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     nexoenv libs all ROOT && \
     nexoenv libs all geant4 && \
     nexoenv libs all vgm && \
-    mkdir $NEXOTOP/ExternalLibs/Build/NEST && \
-    mv $NEXOTOP/nest $NEXOTOP/ExternalLibs/Build/NEST/2.0 && \
-    nexoenv libs all NEST && \
     nexoenv libs all cmt && \
     cd $NEXOTOP && \
     nexoenv env && \
     nexoenv cmtlibs && \
     nexoenv sniper && \
-    nexoenv offline && \
-    export PATH=$NEXOTOP/ExternalLibs/Python/2.7.15/bin:$PATH && \
+    export PATH=$NEXOTOP/ExternalLibs/Python/3.7.3/bin:$PATH && \
     pip install pyyaml && \
     ln -s /opt/nexo/software/sniper/InstallArea/Linux-x86_64/lib /opt/nexo/software/sniper/InstallArea/lib && \
-    rm -Rf $NEXOTOP/nexo-offline && \
     rm -Rf $NEXOTOP/ExternalLibs/Build
 
 ENV NEXO_OFFLINE_OFF 1
