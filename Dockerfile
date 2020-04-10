@@ -82,7 +82,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     echo "Environment: \n" && env | sort && \
     export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
-    ln -s $NEXOTOP/ExternalLibs/Python/3.7.3/include/python3.4m $NEXOTOP/ExternalLibs/Python/3.7.3/lib/python3.4 && \
+    ln -s $NEXOTOP/ExternalLibs/Python/3.7.3/include/python3.4m $NEXOTOP/ExternalLibs/Python/3.7.3/include/python3.4 && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
@@ -106,7 +106,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
 #    ln -s /opt/nexo/software/sniper/InstallArea/Linux-x86_64/lib /opt/nexo/software/sniper/InstallArea/lib && \
 #    rm -Rf $NEXOTOP/ExternalLibs/Build
 
-ENV NEXO_OFFLINE_OFF 1
+# ENV NEXO_OFFLINE_OFF 1
 
 
 
