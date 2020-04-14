@@ -106,7 +106,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     rm /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
     echo -e "import sys\nsys.setdlopenflags( 0x100 | 0x2 ) # RTLD_GLOBAL | RTLD_NOW\nfrom Sniper.libSniperPython import *\nfrom Sniper import PyAlgBase" > /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
     export PATH=$NEXOTOP/ExternalLibs/Python/3.7.3/bin:$PATH && \
-    pip install pyyaml && \
+    conda install -y pyyaml && \
     echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-tobuild.sh && \
     echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\nsource /opt/nexo/software/nexo-offline-build/setup.sh" > /opt/nexo/software/setup-all.sh
 
