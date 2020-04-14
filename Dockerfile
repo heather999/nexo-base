@@ -96,8 +96,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     nexoenv env && \
     nexoenv cmtlibs && \
     rm -Rf $NEXOTOP/ExternalLibs/Build && \
-    cd $NEXOTOP && \
-    source setup.sh && \
+    source $NEXOTOP/bashrc.sh && \
     mkdir sniper-build && \
     cd sniper-build && \
     cmake -DCMAKE_INSTALL_PREFIX=../sniper-install -DPYTHON_LIBRARY=$NEXO_EXTLIB_Python_HOME/lib/libpython3.4m.so -DPYTHON_INCLUDE_DIR=$NEXO_EXTLIB_Python_HOME/include/python3.4 -DBoost_NO_SYSTEM_PATHS=ON -DBOOSTROOT=$NEXO_EXTLIB_Boost_HOME -DBoost_PYTHON_LIBRARY_RELEASE=$NEXO_EXTLIB_Boost_HOME/lib/libboost_python34.so -DCMAKE_CXX_FLAGS=" -std=c++11 " -DUSE_SIMPLE_DIRS=ON ../sniper && \
@@ -108,8 +107,8 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     echo -e "import sys\nsys.setdlopenflags( 0x100 | 0x2 ) # RTLD_GLOBAL | RTLD_NOW\nfrom Sniper.libSniperPython import *\nfrom Sniper import PyAlgBase" > /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
     export PATH=$NEXOTOP/ExternalLibs/Python/3.7.3/bin:$PATH && \
     pip install pyyaml && \
-    echo -e "source /opt/nexo/software/setup.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-tobuild.sh && \
-    echo -e "source /opt/nexo/software/setup.sh\nsource /opt/nexo/software/sniper-install/setup.sh\nsource /opt/nexo/software/nexo-offline-build/setup.sh" > /opt/nexo/software/setup-all.sh
+    echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-tobuild.sh && \
+    echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\nsource /opt/nexo/software/nexo-offline-build/setup.sh" > /opt/nexo/software/setup-all.sh
 
 
 # ENV NEXO_OFFLINE_OFF 1
