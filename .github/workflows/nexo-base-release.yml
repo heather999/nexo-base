@@ -20,8 +20,12 @@ jobs:
         run: echo ::set-output name=DOCKTAG::${GITHUB_REF/refs\/tags\//}
       - name: do docker build
         run: docker pull heather999/nexo-base:latest 
-      - name: tag 
+      - name: tag current
+        run: docker tag heather999/nexo-base:latest heather999/nexo-base:current
+      - name: push current
+        run: docker push heather999/nexo-base:current
+      - name: tag release
         run: docker tag heather999/nexo-base:latest heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }}
-      - name: Docker push 
+      - name: Docker push release
         run: docker push heather999/nexo-base:${{ steps.get_tag.outputs.DOCKTAG }}
        
