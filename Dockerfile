@@ -85,6 +85,10 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
     ln -s $NEXOTOP/ExternalLibs/Python/3.7.7/include/python3.7m $NEXOTOP/ExternalLibs/Python/3.7.7/include/python3.7 && \
+    source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
+    conda activate root && \
+    conda install -c conda-forge -y pyyaml && \
+    conda install -c pytorch -c conda-forge -y pytorch torchvision cpuonly && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
@@ -107,9 +111,6 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     cd .. && \
     rm /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
     echo -e "import sys\nsys.setdlopenflags( 0x100 | 0x2 ) # RTLD_GLOBAL | RTLD_NOW\nfrom Sniper.libSniperPython import *\nfrom Sniper import PyAlgBase" > /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
-    source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
-    conda activate root && \
-    conda install -c conda-forge -y pyyaml && \
     echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-tobuild.sh && \
     echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\nsource /opt/nexo/software/nexo-offline-build/setup.sh" > /opt/nexo/software/setup-all.sh
 
