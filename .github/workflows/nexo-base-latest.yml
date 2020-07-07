@@ -1,6 +1,9 @@
 name: nexo-base latest
 
-on: [push]
+on:
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
