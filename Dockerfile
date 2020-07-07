@@ -88,7 +88,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
     conda activate root && \
     conda install -c conda-forge -y pyyaml && \
-    conda install -c pytorch -c conda-forge -y pytorch torchvision cpuonly && \
+    conda install -c pytorch -c conda-forge -y pytorch torchvision cudatoolkit=10.2 && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
