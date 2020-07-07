@@ -107,7 +107,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     cd .. && \
     rm /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
     echo -e "import sys\nsys.setdlopenflags( 0x100 | 0x2 ) # RTLD_GLOBAL | RTLD_NOW\nfrom Sniper.libSniperPython import *\nfrom Sniper import PyAlgBase" > /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
-    source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/config.sh && \
+    source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
     conda activate root && \
     conda install -c conda-forge -y pyyaml && \
     echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-tobuild.sh && \
