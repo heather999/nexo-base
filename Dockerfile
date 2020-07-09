@@ -28,7 +28,6 @@ RUN yum update -y && \
     bzip2 \
     cmake \
     curl \
-    devtoolset-8 \
     flex \
     fontconfig \
     freetype-devel \
@@ -66,7 +65,9 @@ RUN yum update -y && \
     wget \
     which \
     zlib \
-    zlib-devel && \
+    zlib-devel 
+    
+RUN yum install -y devtoolset-8 && \
     yum clean -y all && \
     rm -rf /var/cache/yum && \
     groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo  && \
