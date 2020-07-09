@@ -28,6 +28,7 @@ RUN yum update -y && \
     bzip2 \
     cmake \
     curl \
+    devtoolset-8 \
     flex \
     fontconfig \
     freetype-devel \
@@ -85,6 +86,8 @@ USER nexo
 #export PATH=$NEXOTOP/ExternalLibs/Python/3.7.7/bin:$PATH && \
 
 RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
+    source scl_source enable devtoolset-8 && \
+    gcc --version && \
     echo "Environment: \n" && env | sort && \
     export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
