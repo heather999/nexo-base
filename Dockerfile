@@ -26,6 +26,7 @@ RUN yum update -y && \
     blas \
     bzip2-devel \
     bzip2 \
+    centos-release-scl-rh \
     cmake \
     curl \
     flex \
@@ -67,7 +68,7 @@ RUN yum update -y && \
     zlib \
     zlib-devel 
     
-RUN yum install -y devtoolset-8 && \
+RUN yum install -y devtoolset-8-gcc devtoolset-8-gcc-c++ && \
     yum clean -y all && \
     rm -rf /var/cache/yum && \
     groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo  && \
