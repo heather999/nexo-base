@@ -48,6 +48,8 @@ RUN yum update -y && \
     libXpm-devel \
     libXrender \
     libXt-devel \
+    lzma \
+    lzma-devel \
     make \
     mesa-libGLU \
     mesa-libGLU-devel \
@@ -97,7 +99,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
     conda activate root && \
     conda install -c conda-forge -y pyyaml && \
-    conda install -c pytorch -c conda-forge -y pytorch torchvision cpuonly && \
+    conda install -c pytorch -c conda-forge -y pytorch==1.4.0 torchvision cpuonly && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
