@@ -8,7 +8,7 @@ RUN yum update -y && \
 ARG GH_USER
 ARG GH_TOKEN
 
-RUN git clone -b u/heather999/pytorch https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
+RUN git clone -b pytorch-test https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
     mv nexo-ei ExternalInterface && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
@@ -99,7 +99,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
     conda activate root && \
     conda install -c conda-forge -y pyyaml && \
-    conda install -c pytorch -c conda-forge -y pytorch==1.4.0 torchvision cpuonly && \
+    conda install -c pytorch -c conda-forge -y pytorch torchvision cpuonly && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
@@ -116,7 +116,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     source $NEXOTOP/bashrc.sh && \
     mkdir sniper-build && \
     cd sniper-build && \
-    cmake -DCMAKE_INSTALL_PREFIX=../sniper-install -DPYTHON_LIBRARY=$NEXO_EXTLIB_Python_HOME/lib/libpython3.7m.so -DPYTHON_INCLUDE_DIR=$NEXO_EXTLIB_Python_HOME/include/python3.7m -DBoost_NO_SYSTEM_PATHS=ON -DBOOSTROOT=$NEXO_EXTLIB_Boost_HOME -DBoost_PYTHON_LIBRARY_RELEASE=$NEXO_EXTLIB_Boost_HOME/lib/libboost_python37.so -DCMAKE_CXX_FLAGS=" -std=c++11 " -DUSE_SIMPLE_DIRS=ON ../sniper && \
+    cmake -DCMAKE_INSTALL_PREFIX=../sniper-install -DPYTHON_LIBRARY=$NEXO_EXTLIB_Python_HOME/lib/libpython3.7m.so -DPYTHON_INCLUDE_DIR=$NEXO_EXTLIB_Python_HOME/include/python3.7m -DBoost_NO_SYSTEM_PATHS=ON -DBOOSTROOT=$NEXO_EXTLIB_Boost_HOME -DBoost_PYTHON_LIBRARY_RELEASE=$NEXO_EXTLIB_Boost_HOME/lib/libboost_python37.so -DCMAKE_CXX_FLAGS=" -std=c++14 " -DUSE_SIMPLE_DIRS=ON ../sniper && \
     make && \
     make install && \
     cd .. && \
