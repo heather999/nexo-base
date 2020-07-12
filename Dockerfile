@@ -73,8 +73,8 @@ RUN yum update -y && \
 RUN yum install -y devtoolset-8-gcc devtoolset-8-gcc-c++ && \
     yum clean -y all && \
     rm -rf /var/cache/yum && \
-    groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo  && \
-    mkdir -p $NEXOTOP
+    groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo  && \
+    mkdir -p $NEXOTOP    
 
 WORKDIR $NEXOTOP
 
@@ -84,7 +84,7 @@ COPY --from=intermediate /sniper $NEXOTOP/sniper
 
 RUN chown -R nexo $NEXOTOP && \
     chgrp -R nexo $NEXOTOP
-    
+    
 USER nexo
 
 #export PATH=$NEXOTOP/ExternalLibs/Python/3.7.7/bin:$PATH && \
