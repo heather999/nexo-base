@@ -96,6 +96,10 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     nexoenv libs all python && \
     ln -s $NEXOTOP/ExternalLibs/Python/3.6.5/include/python3.6m $NEXOTOP/ExternalLibs/Python/3.6.5/include/python3.6 && \
     export PATH=$NEXOTOP/ExternalLibs/Python/3.6.5/bin:$PATH && \
+    ls $NEXOTOP/ExternalLibs/Python && \ 
+    ls $NEXOTOP/ExternalLibs/Python/3.6.5 && \
+    which python && \ 
+    which conda && \
     conda install -c conda-forge -y pyyaml && \
     conda install -c pytorch -c conda-forge -y numpy==1.19.0 pytorch torchvision cpuonly && \
     nexoenv libs all boost && \
