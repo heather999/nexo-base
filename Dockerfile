@@ -100,7 +100,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     ls $NEXOTOP/ExternalLibs/Python/3.6.5 && \
     which python && \ 
     which conda && \
-    conda install -c conda-forge -y pyyaml && \
+    conda install --freeze-installed -c conda-forge -y pyyaml && \
     conda install -c pytorch -c conda-forge -y numpy==1.19.0 pytorch torchvision cpuonly && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
