@@ -2,16 +2,16 @@
 #FROM nvidia/cuda:10.2-runtime-centos7 as intermediate
 FROM nvidia/cuda:10.2-cudnn7-devel-centos7 as intermediate
 RUN yum update -y && \
-    yum install -y bash \
-    git
+    yum install -y bash \
+    git
 
 ARG GH_USER
 ARG GH_TOKEN
 
 RUN git clone -b u/heather999/pytorch https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
-    git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
-    mv nexo-ei ExternalInterface && \
-    git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
+    git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
+    mv nexo-ei ExternalInterface && \
+    git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
 
 #FROM centos:7 as runtime
 #FROM nvidia/cuda:10.2-runtime-centos7 as runtime
@@ -21,7 +21,7 @@ MAINTAINER Heather Kelly <heather@slac.stanford.edu>
 ENV NEXOTOP /opt/nexo/software
 
 RUN yum update -y && \
-    yum install -y bash \
+    yum install -y bash \
     bison \
     blas \
     bzip2-devel \
@@ -48,7 +48,9 @@ RUN yum update -y && \
     libXpm-devel \
     libXrender \
     libXt-devel \
-    make \
+    lzma \
+    lzma-devel \
+    make \
     mesa-libGLU \
     mesa-libGLU-devel \
     motif \
