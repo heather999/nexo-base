@@ -97,7 +97,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     ln -s $NEXOTOP/ExternalLibs/Python/3.6.5/include/python3.6m $NEXOTOP/ExternalLibs/Python/3.6.5/include/python3.6 && \
     export PATH=$NEXOTOP/ExternalLibs/Python/3.6.5/bin:$PATH && \
     conda install -c conda-forge -y pyyaml && \
-    conda install -c pytorch -c conda-forge -y numpy==1.19.0 pytorch torchvision cudatoolkit=10.2 && \
+    conda install -c pytorch -c conda-forge -y numpy==1.19.0 pytorch torchvision cpuonly && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
@@ -125,3 +125,4 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
 
 
 # ENV NEXO_OFFLINE_OFF 1
+
