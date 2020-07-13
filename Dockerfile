@@ -89,6 +89,7 @@ USER nexo
 
 #export PATH=$NEXOTOP/ExternalLibs/Python/3.7.7/bin:$PATH && \
 #    conda install --freeze-installed -c conda-forge -y pyyaml && \
+#    conda install -c pytorch -c conda-forge -y numpy==1.19.0 pytorch torchvision cpuonly && \
 
 RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     gcc --version && \
@@ -100,8 +101,8 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     ls $NEXOTOP/ExternalLibs/Python && \ 
     ls $NEXOTOP/ExternalLibs/Python/3.6.5 && \
     which python && \ 
-    which conda && \
-    conda install -c pytorch -c conda-forge -y numpy==1.19.0 pytorch torchvision cpuonly && \
+    which pip && \
+    pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
