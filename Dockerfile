@@ -8,7 +8,7 @@ RUN yum update -y && \
 ARG GH_USER
 ARG GH_TOKEN
 
-RUN git clone -b u/heather999/pytorch https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
+RUN git clone -b pytorch-noconda https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
     mv nexo-ei ExternalInterface && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
@@ -96,13 +96,13 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     echo "Environment: \n" && env | sort && \
     export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
-    ln -s $NEXOTOP/ExternalLibs/Python/3.6.5/include/python3.6m $NEXOTOP/ExternalLibs/Python/3.6.5/include/python3.6 && \
-    export PATH=$NEXOTOP/ExternalLibs/Python/3.6.5/bin:$PATH && \
+    ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/include/python3.6m $NEXOTOP/ExternalLibs/Python/3.6.8/include/python3.6 && \
+    export PATH=$NEXOTOP/ExternalLibs/Python/3.6.8/bin:$PATH && \
     ls $NEXOTOP/ExternalLibs/Python && \ 
-    ls $NEXOTOP/ExternalLibs/Python/3.6.5 && \
-    which python && \ 
-    which pip && \
-    pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html && \
+    ls $NEXOTOP/ExternalLibs/Python/3.6.8 && \
+    which python3 && \ 
+    which pip3 && \
+    pip3 install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
