@@ -98,7 +98,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     nexoenv libs all python && \
     ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/include/python3.6m $NEXOTOP/ExternalLibs/Python/3.6.8/include/python3.6 && \
     ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/bin/python3 $NEXOTOP/ExternalLibs/Python/3.6.8/bin/python && \
-    ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/bin/pip3 $NEXOTOP/ExternalLibs/Python/3.6.8/bin/pip && 
+    ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/bin/pip3 $NEXOTOP/ExternalLibs/Python/3.6.8/bin/pip && \
     export PATH=$NEXOTOP/ExternalLibs/Python/3.6.8/bin:$PATH && \
     export LD_LIBRARY_PATH=$NEXOTOP/ExternalLibs/Python/3.6.8/lib:$PATH && \
     ls $NEXOTOP/ExternalLibs/Python && \ 
