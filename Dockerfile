@@ -97,13 +97,15 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     export PATH=$NEXOTOP/nexo-env:$PATH && \
     nexoenv libs all python && \
     ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/include/python3.6m $NEXOTOP/ExternalLibs/Python/3.6.8/include/python3.6 && \
+    ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/bin/python3 $NEXOTOP/ExternalLibs/Python/3.6.8/bin/python && \
+    ln -s $NEXOTOP/ExternalLibs/Python/3.6.8/bin/pip3 $NEXOTOP/ExternalLibs/Python/3.6.8/bin/pip && 
     export PATH=$NEXOTOP/ExternalLibs/Python/3.6.8/bin:$PATH && \
     export LD_LIBRARY_PATH=$NEXOTOP/ExternalLibs/Python/3.6.8/lib:$PATH && \
     ls $NEXOTOP/ExternalLibs/Python && \ 
     ls $NEXOTOP/ExternalLibs/Python/3.6.8 && \
-    which python3 && \ 
-    which pip3 && \
-    pip3 install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html && \
+    which python && \ 
+    which pip && \
+    pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html && \
     nexoenv libs all boost && \
     nexoenv libs all cmake && \
     nexoenv libs all xercesc && \
