@@ -122,7 +122,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     source $NEXOTOP/bashrc.sh && \
     mkdir sniper-build && \
     cd sniper-build && \
-    cmake -DCMAKE_INSTALL_PREFIX=../sniper-install -DPYTHON_LIBRARY=$NEXO_EXTLIB_Python_HOME/lib/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$NEXO_EXTLIB_Python_HOME/include/python3.6m -DBoost_NO_SYSTEM_PATHS=ON -DBOOSTROOT=$NEXO_EXTLIB_Boost_HOME -DBoost_PYTHON_LIBRARY_RELEASE=$NEXO_EXTLIB_Boost_HOME/lib/libboost_python3.so -DCMAKE_CXX_FLAGS=" -std=c++11 " -DUSE_SIMPLE_DIRS=ON ../sniper && \
+    cmake -DCMAKE_INSTALL_PREFIX=../sniper-install -DPYTHON_LIBRARY=$NEXO_EXTLIB_Python_HOME/lib/libpython3.6m.so -DPYTHON_INCLUDE_DIR=$NEXO_EXTLIB_Python_HOME/include/python3.6m -DBoost_NO_SYSTEM_PATHS=ON -DBOOSTROOT=$NEXO_EXTLIB_Boost_HOME -DBoost_PYTHON_LIBRARY_RELEASE=$NEXO_EXTLIB_Boost_HOME/lib/libboost_python36.so -DCMAKE_CXX_FLAGS=" -std=c++11 " -DUSE_SIMPLE_DIRS=ON ../sniper && \
     make && \
     make install && \
     cd .. && \
