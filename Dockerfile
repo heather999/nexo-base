@@ -3,7 +3,8 @@ FROM heather999/nexo-base:v4r2p0 as intermediate
 ARG GH_USER
 ARG GH_TOKEN
 
-RUN git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-offline.git 
+RUN cd /tmp && \
+    git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-offline.git 
     
 FROM heather999/nexo-base:v4r2p0 as runtime
 MAINTAINER Heather Kelly <heather@slac.stanford.edu>
@@ -15,7 +16,7 @@ ENV NEXOTOP /opt/nexo/software
 
 WORKDIR $NEXOTOP
 
-COPY --from=intermediate /nexo-offline $NEXOTOP/nexo-offline
+COPY --from=intermediate /tmp/nexo-offline $NEXOTOP/nexo-offline
 
 #RUN chown -R nexo $NEXOTOP && \
 #    chgrp -R nexo $NEXOTOP
