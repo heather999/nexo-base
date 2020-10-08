@@ -7,6 +7,7 @@ ARG GH_USER
 ARG GH_TOKEN
 
 RUN git clone -b u/heather999/issue_13 https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-env.git && \
+    git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-offline.git && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-ei.git && \
     mv nexo-ei ExternalInterface && \
     git clone https://$GH_USER:$GH_TOKEN@github.com/SNiPER-Framework/sniper.git
@@ -70,6 +71,7 @@ RUN yum update -y && \
 WORKDIR $NEXOTOP
 
 COPY --from=intermediate /nexo-env $NEXOTOP/nexo-env
+COPY --from=intermediate /nexo-offline $NEXOTOP/nexo-offline
 COPY --from=intermediate /ExternalInterface $NEXOTOP/ExternalInterface
 COPY --from=intermediate /sniper $NEXOTOP/sniper
 
@@ -107,6 +109,11 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     cd .. && \
     rm /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
     echo -e "import sys\nsys.setdlopenflags( 0x100 | 0x2 ) # RTLD_GLOBAL | RTLD_NOW\nfrom Sniper.libSniperPython import *\nfrom Sniper import PyAlgBase" > /opt/nexo/software/sniper-install/python/Sniper/__init__.py && \
+    source $NEXOTOP/sniper-install/setup.sh && \
+    mkdir $NEXOTOP/nexo-offline-build && \
+    cd $NEXOTOP/nexo-offline-build && \
+    cmake -DSNIPER_ROOT_DIR=/opt/nexo/software/sniper-install -DCMAKE_CXX_FLAGS="-std=c++11" ../nexo-offline && \
+    make && \
     source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
     conda activate root && \
     conda install -c conda-forge -y pyyaml && \
