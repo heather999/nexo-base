@@ -8,7 +8,7 @@ RUN git clone https://$GH_USER:$GH_TOKEN@github.com/nEXO-collaboration/nexo-offl
 FROM heather999/nexo-base:v4r2p0 as runtime
 MAINTAINER Heather Kelly <heather@slac.stanford.edu>
 
-#ENV NEXOTOP /opt/nexo/software
+ENV NEXOTOP /opt/nexo/software
 
 #RUN groupadd -g 1200 -r nexo && useradd -u 1200 --no-log-init -m -r -g nexo nexo  && \
 #    mkdir -p $NEXOTOP
