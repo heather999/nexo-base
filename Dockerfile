@@ -110,8 +110,10 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     source $NEXOTOP/ExternalLibs/Python/3.7.7/etc/profile.d/conda.sh && \
     conda activate root && \
     conda install -c conda-forge -y pyyaml && \
-    echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-tobuild.sh && \
-    echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\nsource /opt/nexo/software/nexo-offline-build/setup.sh" > /opt/nexo/software/setup-all.sh
+    rm setup.* && \
+    mv bashrc.sh setup-externals.sh && \
+    mv tcshrc.csh setup-externals.csh && \
+    echo -e "source /opt/nexo/software/bashrc.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-env.sh 
 
 
 # ENV NEXO_OFFLINE_OFF 1
