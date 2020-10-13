@@ -1,1 +1,3 @@
 # nexo-base
+
+base environment
