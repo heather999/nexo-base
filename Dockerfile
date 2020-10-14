@@ -1,4 +1,4 @@
-FROM heather999/nexo-base:v4r2p0 as intermediate
+FROM heather999/nexo-base:latest as intermediate
 
 ARG GH_USER
 ARG GH_TOKEN
