@@ -116,6 +116,7 @@ RUN chmod ug+x nexo-env/nexoenv && chmod ug+x nexo-env/*.sh && \
     echo -e "source /opt/nexo/software/setup-externals.sh\nsource /opt/nexo/software/sniper-install/setup.sh\n" > /opt/nexo/software/setup-env.sh && \
     echo "source /opt/nexo/software/setup-env.sh" >> /root/.bashrc
 
+USER nexo
 
 # ENV NEXO_OFFLINE_OFF 1
 CMD ["/bin/bash"]
